@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+	<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+		<bean
+			class="org.springframework.jdbc.dataSource.DriverManagerDataSource"
+			name="dataSource">
+			<property name="driverClassName"
+				value="com.mysql.cj.jdbc.Driver" />
+			<property name="url"
+				value="jdbc:mysql://localhost:3306/springhibernate" />
+			<property name="username" value="root" />
+			<property name="password" value="en$cry%ption123" />
+		</bean>
+
+		<bean
+			class="org.springframework.orm.hibernate5.localSessionFactoryBean"
+			name="sessionFactory">
+			<property name="" ref="dataSource" />
+			<property name="hibernateProperties">
+				<props>
+					<prop key="hibernate.dialect">
+						org.hibernate.dialect.mySQLDialect
+					</prop>
+					<prop key="hibernate.show_sql">true</prop>
+					<prop key="hibernate.hbm2ddl_auto">update</prop>
+				</props>
+			</property>
+			<property name="annotatedClasses">
+				<list>
+					<value>com.orm.hibernate.model.Employee</value>
+				</list>
+			</property>
+		</bean>
+
+		<bean name="transactionManager"
+			class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+			<property name="sessionFactory" ref="sessionFactory" />
+		</bean>
+		<bean class="com.orm.hibernate.dao.EmployeeDaoImp" name="dao">
+			<property name="sessionFactory" ref="transactionManager">
+			</property>
+		</bean>
+		<bean class="com.orm.hibernate.dao.DepartmentDao" name="departmentDao">
+			<property name="sessionFactory" ref="transactionManager">
+			</property>
+		</bean>
+		<tx:annotation-driven transaction-manager="transactionManager" />
+
+
+
+	</beans>
+

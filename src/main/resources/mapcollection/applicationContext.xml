@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Define Supplier beans -->
+    <bean name="supplier1" class="com.collection.map.model.Supplier">
+        <property name="id" value="S1"/>
+        <property name="name" value="Supplier One"/>
+    </bean>
+
+    <bean name="supplier2" class="com.collection.map.model.Supplier">
+        <property name="id" value="S2"/>
+        <property name="name" value="Supplier Two"/>
+    </bean>
+
+    <!-- Define Item beans -->
+    <bean name="item1" class="com.collection.map.model.Item">
+        <property name="id" value="I1"/>
+        <property name="name" value="Laptop"/>
+        <property name="price" value="1500.00"/>
+    </bean>
+
+    <bean name="item2" class="com.collection.map.model.Item">
+        <property name="id" value="I2"/>
+        <property name="name" value="Smartphone"/>
+        <property name="price" value="800.00"/>
+    </bean>
+
+    <bean name="item3" class="com.collection.map.model.Item">
+        <property name="id" value="I3"/>
+        <property name="name" value="Headphones"/>
+        <property name="price" value="100.00"/>
+    </bean>
+
+    <!-- Define Inventory bean with a Map of Items by Supplier ID -->
+    <bean name="inventory" class="com.collection.map.model.Inventory">
+        <property name="itemsBySupplier">
+            <map>
+                <entry key="S1" value-ref="item1"/>
+                <entry key="S2" value-ref="item2"/>
+                <entry key="S1" value-ref="item3"/> <!-- Adding another item to the same supplier -->
+            </map>
+        </property>
+    </bean>
+
+</beans>
+
+
+
+
+
+
+
+
+
